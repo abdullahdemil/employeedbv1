@@ -1,0 +1,70 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+using namespace std;
+
+int menuopt;
+
+int main(){
+
+cout << "Choose the option what do you want\n";
+cout << "1: Query \n";
+cout << "2: Add new employee \n";
+cout << "3: Delete old employee";
+}
+
+-----------------------------------------------------------
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+using namespace std;
+struct calisan {
+    string isim;
+    int yas;
+    int maas;
+};
+int main(){
+    ofstream dosyayayaz;
+    dosyayayaz.open("yeni.txt");
+    calisan calisan1 = {"diloy", 20, 100000};
+    dosyayayaz << calisan1.isim << " " << calisan1.yas << " " << calisan1.maas <<endl;
+}
+
+----------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <sstream>
+using namespace std;
+struct calisan {
+    string isim;
+    int yas;
+    int maas;
+};
+string a;
+int b;
+int c;
+int main(){
+    cin >> a;
+    cin >>  b;
+    cin >>  c;
+    calisan calisan1 = {a,b,c};
+    ofstream dosyayayaz;
+    dosyayayaz.open("yeni.txt");
+    dosyayayaz << calisan1.isim << " " << calisan1.yas << " " << calisan1.maas <<endl;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

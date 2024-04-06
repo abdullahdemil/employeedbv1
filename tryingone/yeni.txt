@@ -1,0 +1,6 @@
+
+Id: 1,Calisan İsmi: demil,Calisan Maasi: 88888,Calisan adresi: didim,1875946688
+Id: 1, Calisan İsmi: burun, Calisan Maasi: 123, Calisan adresi: kekw, 1875946688
+Id: 1, Calisan İsmi: asd, Calisan Maasi: 123, Calisan adresi: asd, 0
+Id: 1, Calisan İsmi: bla, Calisan Maasi: 0, Calisan adresi: , 1
+Id: 1, Calisan İsmi: bla, Calisan Maasi: 123, Calisan adresi: 32, 1
