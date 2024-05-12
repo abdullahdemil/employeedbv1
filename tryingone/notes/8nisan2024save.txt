@@ -1,0 +1,161 @@
+// Do you love coding??
+// Yes-
+// Yesterday it made me cry for 3 times.
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
+using namespace std;
+static int idKayit;
+class Calisan{
+    public:
+        static int idSayac; /*HOCAM ÖNEMLİ*/
+        int calisanid;
+        string isim;
+        int yas;
+        int maas;
+        string adres;
+// /////////////////////////////////////////////////////
+        Calisan(){
+        ++idSayac;
+        };
+        int idOlustur() {
+        return idSayac;
+        };
+// /////////////////////////////////////////////////////
+    int calisanEkleme (ofstream& dosya){
+        cout << "Yeni bir calisan ise alma ekranina hos geldiniz!" << endl;
+        calisanid = idOlustur();
+        cout << "Calisanin ismini giriniz :" <<endl;
+        cin.ignore();
+        getline(cin, isim);
+        cout << "Maasini giriniz: " << endl;
+        cin >> maas ;
+        cin.ignore();
+        cout << "Adresini giriniz: "<< endl;
+        getline(cin, adres);
+        dosya << "Id: "<< calisanid << ", ";
+        dosya << "Calisan ismi: " << isim << ", ";
+        dosya << "Calisan Maasi: " << maas << ", " ;
+        dosya << "Calisan adresi: " << adres << ", " <<endl;
+        cout << "Dosya yazma islemi tamamlanmistir!...";
+// //////////////////////////////////////////////////////
+   }
+};
+void satirSil(int id) {
+    ifstream oku("dosya.txt");
+    ofstream yaz("gecici.txt");
+    string satir;
+
+    while (getline(oku, satir)) {
+        size_t pos = satir.find("Id: " + to_string(id)); // Satırda arama yap
+        if (pos == string::npos) { // Aranan ifadeyi bulamazsan
+            yaz << satir << endl; // Satırı geçici dosyaya yaz
+        }
+    }
+
+    oku.close();
+    yaz.close();
+
+    // Geçici dosyadaki veriyi asıl dosyaya aktar
+    remove("dosya.txt");
+    rename("gecici.txt", "dosya.txt");
+}
+int idOlusturma(){ // amacım "calisan1, calisan2, calisan3" gibi stringleri otomatize bir şekilde oluşturmak ve tabiki oluşturduğum calisanlari bir daha bastan oluşturmamak. Bunun yöntemi de iki tane ögenin toplamı olan bir string oluşturmak ve
+ifstream calisanIdKayit("idkayit.txt"); // elimle oluşturduğum "degisken.txt"i okutuyorum.
+if (calisanIdKayit.is_open()){ // eğer dosya açılmışsa program tarafından sorunsuzca
+    calisanIdKayit >> idKayit; // dosyanın içinde yazan sayıyı al benim int nesneNum'umun içine at
+    idKayit ++; // ve nesneNum'u 1 arttır. 1 arttır ki devamlı değişsin içindeki sayı
+    }
+calisanIdKayit.close(); // sonra dosyayı kapa da başımıza iş almayalım kullanmasak nolur idk
+ofstream calisanIdGuncelle("idkayit.txt", ios::out); // aynı dosyayı bi de YAZMAK için açalım bakalım
+if (calisanIdGuncelle.is_open()){ // eğer dosya sorunsuzca açılmışsa
+    calisanIdGuncelle << idKayit; // daha demin 1 arttırdığım nesneNum'u geri dosyaya yaz eskisini silerek.
+    }
+calisanIdGuncelle.close(); // askim isiklari kapa
+return idKayit; // BU FONKSİYON İŞİ BİTTİĞİNDE "nesneNum" SAYISINI İFADE EDİYOR VE BU MUHTEŞEM BİŞEY.
+}
+int Calisan::idSayac = idOlusturma();
+void satirGetir(ifstream& dosyas, int& istenensatir) {
+  string satir;
+  int satirSayaci = 0;
+  while (getline(dosyas, satir)) {
+    satirSayaci++;
+    if (satirSayaci == istenensatir) {
+      cout << "Satiriniz: " << satir;
+      break;
+    }
+  }
+  dosyas.close();
+}
+int main(){
+ofstream verigir("yeni.txt", ios::app);
+ifstream verial("yeni.txt");
+Calisan calisan1;
+int anaMenuSecim;
+cout << " Ana menuye hos geldiniz! \n\nYeni bir calisan eklemek icin 1'i\nId ile bir calisan aramak icin 2'yi\nId no ile calisan guncellemek icin 3'u seciniz...\n:"; // cok büyük ucubelik biliyorum, bana bilmediğim bir şey söyle.
+cin >> anaMenuSecim;
+while(1){ // bu while döngüsünün amacı, eğer ki kullanıcı menüde yazmayan bir sayı girerse;;;
+    if(anaMenuSecim != 1 && anaMenuSecim != 2 && anaMenuSecim !=3) // if ve AND(&&) kapısı ile bunu kontrol etsin;;;
+    {
+        cout << "Lutfen menudeki bir secenegi giriniz...: "; // ve yer yanlis giriste tekrar tekrar uyarsın;;;
+        cin >> anaMenuSecim; // ve yeniden anaMenuSecim degeri istesin bizden ;;;
+    }
+    else {
+        cout << "Secim basarili! Islem gerceklestiriliyor...\n";
+        cout << "--------------------------------------------\n";
+        break; //taa ki kullanıcının girdiği değer 1 2 ve 3ten biri olana dek;;;
+    }
+}
+    if (anaMenuSecim == 1){
+        calisan1.calisanEkleme(verigir);
+    }
+    if (anaMenuSecim == 2){
+
+    }
+} // sikeyim böyle kodun anasını ya
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*string nesnestr = "calisan";
+string isci = nesnestr + to_string(nesneOlusturma()); // ÇIĞLIK ATTIM FRANKENŞTAYN YAŞIYOO!!!!!
+cout << isci;
+stringstream ss;
+ss >> isci;
+fstream infile("yeni.txt", ios::app);
+anaMenu();
+Calisan sss;
+sss.calisanEkleme(infile);*/
+
+
+
+/*
+Calisan ahmet;
+ofstream outfile("yeni.txt", ios::app);
+ahmet.calisanEkleme(outfile); */
+
+/*cout << calisan1.calisanid <<endl;
+cout << calisan1.isim <<endl;
+cout << calisan1.maas <<endl;
+cout << calisan1.adres <<endl; */
+
+
+
+
+    /*calisan calisan1 = {a,b,c};
+    ofstream dosyayayaz;
+    dosyayayaz.open("yeni.txt");
+    dosyayayaz << calisan1.isim << " " << calisan1.yas << " " << calisan1.maas <<endl; */

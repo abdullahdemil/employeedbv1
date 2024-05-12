@@ -1,0 +1,11 @@
+String ad
+string soyad
+int dogduguYil
+int yas
+string calisamayaBasladigiYil
+string calisamayaBasladigiAy
+int calistigiYil
+int deneyim
+string calisan
+string müdür
+string projelideri

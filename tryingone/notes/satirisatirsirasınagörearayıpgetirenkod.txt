@@ -1,0 +1,12 @@
+void satirGetir(ifstream& dosyas, int& istenensatir) { // şu anda ölü fonksiyon benim için
+  string satir;
+  int satirSayaci = 0;
+  while (getline(dosyas, satir)) {
+    satirSayaci++;
+    if (satirSayaci == istenensatir) {
+      cout << "Satiriniz: " << satir;
+      break;
+    }
+  }
+  dosyas.close();
+}

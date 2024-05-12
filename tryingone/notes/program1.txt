@@ -1,0 +1,29 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+using namespace std;
+struct calisan {
+    string isim;
+    int yas;
+    int maas;
+};
+string a;
+int b;
+int c;
+int main(){
+    cout << "Calisan ismi giriniz: ";
+    cin >> a;
+    cout << "Calisan yasi giriniz: ";
+    cin >> b;
+    cout << "Calisan maasi giriniz: ";
+    cin >> c;
+    if (!a.empty() && b>0 && c>0){
+        cout << "Dosya yazimi basarili!";
+    }
+    else{ cout << "Dosya yazim isleminde bir hata olustu";}
+    calisan calisan1 = {a,b,c};
+    ofstream dosyayayaz;
+    dosyayayaz.open("yeni.txt");
+    dosyayayaz << calisan1.isim << " " << calisan1.yas << " " << calisan1.maas <<endl;
+
+}

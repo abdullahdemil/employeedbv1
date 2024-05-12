@@ -1,0 +1,27 @@
+void idBul(ifstream& dosyas, int id) {
+        string satir;
+        int satirSayaci = 0;
+        bool bulundu = false;
+
+        while (getline(dosyas, satir)) {
+            satirSayaci++;
+            // Check if the line contains the specified ID
+            if (satir.find("Id: " + to_string(id)) != string::npos) {
+                cout << "Satiriniz: " << satir;
+                bulundu = true;
+                break;
+            }
+        }
+        if (!bulundu) {
+            cout << "Uyari: Aradiginiz ID'li satir bulunamadi." << endl;
+    }
+        dosyas.close();
+    }
+
+int main(){
+ifstream verial("yeni.txt");
+int idArangaci; // Arangaç Türkçe karşim.
+cout << "Bulmak istediginiz calisanin id'sini giriniz...: ";
+cin >> idArangaci;
+idBul(verial, idArangaci);
+}

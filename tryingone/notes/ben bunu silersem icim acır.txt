@@ -1,0 +1,1 @@
+cout << "Ana menuye hos geldiniz!" << endl <<endl << "_Yeni bir calisan eklemek icin_ " <<endl << "_____________1_____________" << endl << "Id ile bir calisan aramak icin" << endl <<"_____________2_____________" << endl << "Id no ile calisan guncellemek icin" <<endl << "_____________3_____________" << endl <<endl;

@@ -1,6 +1,10 @@
 # depslib dependency file v1.0
-1712401617 source:c:\users\abdul\desktop\c++lessons\codeblocks\dilanoy\tryingone\main.cpp
+1712765652 source:c:\users\abdul\desktop\c++lessons\codeblocks\dilanoy\tryingone\main.cpp
+	<filesystem>
 	<iostream>
 	<fstream>
 	<sstream>
+	<vector>
+	<string>
+	<cstdio>
 

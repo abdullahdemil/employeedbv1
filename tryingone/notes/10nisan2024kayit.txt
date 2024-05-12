@@ -1,0 +1,217 @@
+// Do you love coding??
+// Yes-
+// Yesterday it made me cry for 3 times.
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <cstdio>
+#include <filesystem>
+using namespace std;
+static int idKayit;
+class Calisan{
+    public:
+        static int idSayac; /*HOCAM ÖNEMLİ*/
+        int calisanid;
+        string isim;
+        int yas;
+        int maas;
+        string adres;
+// /////////////////////////////////////////////////////
+       int idOlustur() {
+           ++idSayac;
+           return idSayac;
+           };
+       Calisan(){
+           idOlustur();
+           };
+
+// //////////////////////////////////////////////////////
+    int calisanEkleme (ofstream& dosya){
+        cout << "Yeni bir calisan ise alma ekranina hos geldiniz!" << endl;
+        calisanid = idOlustur();
+        cout << "Calisanin ismini giriniz :" <<endl;
+        cin.ignore();
+        getline(cin, isim);
+        cout << "Maasini giriniz: " << endl;
+        cin >> maas ;
+        cin.ignore();
+        cout << "Adresini giriniz: "<< endl;
+        getline(cin, adres);
+        dosya << "Id: "<< calisanid << ", ";
+        dosya << "Calisan ismi: " << isim << ", ";
+        dosya << "Calisan Maasi: " << maas << ", " ;
+        dosya << "Calisan adresi: " << adres << ", " <<endl;
+        cout << "Dosya yazma islemi tamamlanmistir!...\n";
+// //////////////////////////////////////////////////////
+   }
+};
+void renameFile(const std::string& oldFileName, const std::string& newFileName){
+if (std::rename(oldFileName.c_str(), newFileName.c_str()) != 0)
+{
+std::cout << "Error renaming file";
+}
+else
+{
+std::cout << "File renamed successfully";
+}
+}
+void idSil(int id) {
+    ifstream oku("data/database.txt");
+    ofstream yaz("data/gecici.txt");
+    string satir;
+
+    while (getline(oku, satir)) {
+        size_t pos = satir.find("Id: " + to_string(id)); // Satırda arama yap
+        if (pos == string::npos) { // Aranan ifadeyi bulamazsan
+            yaz << satir << endl; // Satırı geçici dosyaya yaz
+        }
+    }
+
+    oku.close();
+    yaz.close();
+
+    // Geçici dosyadaki veriyi asıl dosyaya aktar
+    remove("data/database.txt");
+    rename("gecici.txt", "datadatabase.txt");
+}
+int idOlusturma(){ // Bu fonkisoynun amacı, id'yi sürekli resetlememek ve devamlı bir yerde kayıtlı tutmak.
+ifstream calisanIdKayit("idkayit.txt"); // elimle oluşturduğum "idkayit.txt"i okutuyorum.
+if (calisanIdKayit.is_open()){ // eğer dosya açılmışsa program tarafından sorunsuzca
+    calisanIdKayit >> idKayit;// dosyanın içinde yazan sayıyı al benim int idKayit'imin içine at
+    cout << "degisken doldurma basarili\n";
+    idKayit ++; // ve idKayit'i 1 arttır. 1 arttır ki devamlı değişsin içindeki sayı
+    cout << "id kayit bir artirildi.\n";
+    }
+calisanIdKayit.close(); // sonra dosyayı kapa da başımıza iş almayalım kullanmasak nolur idk
+ofstream calisanIdGuncelle("idkayit.txt", ios::out); // aynı dosyayı bi de YAZMAK için açalım bakalım
+if (calisanIdGuncelle.is_open()){ // eğer dosya sorunsuzca açılmışsa
+    calisanIdGuncelle << idKayit;// daha demin 1 arttırdığım idKayit geri dosyaya yaz eskisini silerek.
+    cout << "bir artirilan deger dosyanin uzerine yazildi.\n";
+    }
+calisanIdGuncelle.close(); // askim isiklari kapa
+return idKayit; // BU FONKSİYON İŞİ BİTTİĞİNDE "nesneNum" SAYISINI İFADE EDİYOR VE BU MUHTEŞEM BİŞEY.
+}
+int Calisan::idSayac = idOlusturma();
+
+
+void satirBul(ifstream& dosyas, int& istenensatir) { // şu anda ölü fonksiyon benim için
+  string satir;
+  int satirSayaci = 0;
+  while (getline(dosyas, satir)) {
+    satirSayaci++;
+    if (satirSayaci == istenensatir) {
+      cout << "Satiriniz: " << satir;
+      break;
+    }
+  }
+  dosyas.close();
+}
+int idBul(ifstream& dosyas, int id) {
+        string satir;
+        int satirSayaci = 0;
+        bool bulundu = false;
+
+        while (getline(dosyas, satir)) {
+            satirSayaci++;
+            // Check if the line contains the specified ID
+            if (satir.find("Id: " + to_string(id)) != string::npos) {
+                cout << "Satiriniz: " << satir;
+                bulundu = true;
+                break;
+            }
+        }
+        if (!bulundu) {
+            cout << "Uyari: Aradiginiz ID'li satir bulunamadi." << endl;
+            return 0;
+    }
+        dosyas.close();
+    }
+
+
+int main(){
+ofstream verigir("data/database.txt", ios::app);
+ifstream verial("data/database.txt");
+Calisan calisan1;
+while(idOlusturma()){
+int anaMenuSecim;
+cout << "Ana menuye hos geldiniz! \n\nYeni bir calisan eklemek icin 1'i\nId ile bir calisan aramak icin 2'yi\nId no ile calisan silmek icin 3'u seciniz...\n:"; // cok büyük ucubelik biliyorum, bana bilmediğim bir şey söyle.
+cin >> anaMenuSecim;
+while(1){ // bu while döngüsünün amacı, eğer ki kullanıcı menüde yazmayan bir sayı girerse;;;
+    if(anaMenuSecim != 1 && anaMenuSecim != 2 && anaMenuSecim !=3) // if ve AND(&&) kapısı ile bunu kontrol etsin;;;
+    {
+        cout << "Lutfen menudeki bir secenegi giriniz...: "; // ve yer yanlis giriste tekrar tekrar uyarsın;;;
+        cin >> anaMenuSecim; // ve yeniden anaMenuSecim degeri istesin bizden ;;;
+    }
+    else {
+        cout << "Secim basarili! Islem gerceklestiriliyor...\n";
+        cout << "--------------------------------------------\n";
+        break; //taa ki kullanıcının girdiği değer 1 2 ve 3ten biri olana dek;;;
+    }
+}
+    if (anaMenuSecim == 1){
+        calisan1.calisanEkleme(verigir);
+    }
+    if (anaMenuSecim == 2){
+        int idarama;
+        cout << "Bulmak istediginiz Id'i giriniz..: ";
+        cin >> idarama;
+        idBul(verial,idarama);
+    }
+    if (anaMenuSecim == 3){
+        verigir.close(); // BEN BU İKİ SATIRA İKİ GÜNÜMÜ VBERDİM
+        verial.close(); // BU İKİ SATIRIN GEREKLİ OLDUĞUNU BULMAK İÇİN. HİÇ BİR YAPAY ZEKA BU SORUNU ÇÖZEMEDİ.
+      /*OLAY ŞU, EĞER BU KODLAR OLMAZSA, İNT MAİNDE AÇILAN "DOSYADEPOSU" AÇIK KALIYOR VE FONKSİYON BU DOSYAYI RENAME EDEMİYOR. ÇÜNKÜ FONKTA KAPATSA İNT MAİNDE AÇIK KALIYOR. ANASINI SİKEYİM BEN BÖLE OLAYIN, 3 TANE FARKLI YAPAY ZEKAYA SORDUM 2 GÜN HİÇ BİRİ DE Bİ SİKİM CEVAP VEREMEDİ SİZİN BEN EKİBİNİZİ SKEYİM ORSPUCCUKLARI*/
+        int idsilmece;
+        cout << "Silmek istediginiz calisan'in Id'sini giriniz: ";
+        cin >> idsilmece;
+        idSil(idsilmece);
+    }
+}
+}
+
+
+
+
+
+
+
+// sikeyim böyle kodun anasını ya
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*string nesnestr = "calisan";
+string isci = nesnestr + to_string(nesneOlusturma()); // ÇIĞLIK ATTIM FRANKENŞTAYN YAŞIYOO!!!!!
+cout << isci;
+stringstream ss;
+ss >> isci;
+fstream infile("yeni.txt", ios::app);
+anaMenu();
+Calisan sss;
+sss.calisanEkleme(infile);*/
+/*
+Calisan ahmet;
+ofstream outfile("yeni.txt", ios::app);
+ahmet.calisanEkleme(outfile); */
+
+/*cout << calisan1.calisanid <<endl;
+cout << calisan1.isim <<endl;
+cout << calisan1.maas <<endl;
+cout << calisan1.adres <<endl; */
+    /*calisan calisan1 = {a,b,c};
+    ofstream dosyayayaz;
+    dosyayayaz.open("yeni.txt");
+    dosyayayaz << calisan1.isim << " " << calisan1.yas << " " << calisan1.maas <<endl; */

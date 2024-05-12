@@ -1,0 +1,8 @@
+void renameFile(const std::string& oldFileName, const std::string& newFileName){
+    if (std::rename(oldFileName.c_str(), newFileName.c_str()) != 0){
+        std::cout << "Error renaming file";
+        }
+    else{
+        std::cout << "File renamed successfully";
+        }
+}

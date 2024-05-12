@@ -1,0 +1,5 @@
+Ana Menüde olması gerekenler:
+
++Çalışan Sorgulamak için giriniz;
++çalışan eklemek için giriniz;
++Çalışan silmek için giriniz;

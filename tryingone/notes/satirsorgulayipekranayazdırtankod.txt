@@ -1,0 +1,23 @@
+#includelar
+
+void satirGetir(ifstream& dosyas, int& istenensatir) { // girdide içeri bir tane ifstream, bir tane de sayi girilmesi gerekiyor
+  string satir; // dosyadan okunan satirlari bu değişkenin içine atacağız
+  int satirSayaci = 0; // istediğimiz satıra kadar imleci koşturmak için gerekiyor.
+  while (getline(dosyas, satir)) { // dosyası satira ekleyebildiği sürece 1 değerini dönderir getline.
+    satirSayaci++; // sen kafana göre 1 arttır hocam.
+    if (satirSayaci == istenensatir) { // taa fonksiyonun çağrılışında girilen sayıya geldiğin vakte kadar.
+      cout << "Satiriniz: " << satir; // satiri yazdır konsola bakem.
+      break;
+    }
+  }
+  dosyas.close(); // ha bi de şeylik çıkmasın diye dosyayı kapat üşümesin.
+}
+
+int main(){
+ofstream verigir("yeni.txt", ios::app); // dosya yoksa oluştur, varsa da üzerine ekleme yap.
+ifstream verial("yeni.txt"); // aynı dosyayı oku bakim
+int hangisatir; // kullanıcıdan satir sorgusu isteyebilmek için degisken
+cout << "hangi satiri istiyon? ";
+cin >> hangisatir;
+satirGetir(verial, hangisatir); // kullanılacak olan dosyayı ve satiri girerek fonksiyonu calistir.
+}

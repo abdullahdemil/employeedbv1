@@ -1,0 +1,17 @@
+static int nesneNum;
+
+int nesneOlusturma(){ // amacım "calisan1, calisan2, calisan3" gibi stringleri otomatize bir şekilde oluşturmak ve tabiki oluşturduğum calisanlari bir daha bastan oluşturmamak. Bunun yöntemi de iki tane ögenin toplamı olan bir string oluşturmak ve
+ifstream nesneNumKayit("degisken.txt"); // elimle oluşturduğum "degisken.txt"i okutuyorum.
+if (nesneNumKayit.is_open()){ // eğer dosya açılmışsa program tarafından sorunsuzca
+    nesneNumKayit >> nesneNum; // dosyanın içinde yazan sayıyı al benim int nesneNum'umun içine at
+    nesneNum ++; // ve nesneNum'u 1 arttır. 1 arttır ki devamlı değişsin içindeki sayı
+    }
+nesneNumKayit.close(); // sonra dosyayı kapa da başımıza iş almayalım kullanmasak nolur idk
+ofstream nesneNumGuncelle("degisken.txt", ios::out); // aynı dosyayı bi de YAZMAK için açalım bakalım
+if (nesneNumGuncelle.is_open()){ // eğer dosya sorunsuzca açılmışsa
+    nesneNumGuncelle << nesneNum; // daha demin 1 arttırdığım nesneNum'u geri dosyaya yaz eskisini silerek.
+    }
+nesneNumGuncelle.close(); // askim isiklari kapa
+cout << nesneNum <<endl;
+return nesneNum; // BU FONKSİYON İŞİ BİTTİĞİNDE "nesneNum" SAYISINI İFADE EDİYOR VE BU MUHTEŞEM BİŞEY.
+}

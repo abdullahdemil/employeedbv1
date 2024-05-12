@@ -1,0 +1,59 @@
+void deleteEmployeeById(int id) {
+    // Geçici dosyayı oluşturmak için bir geçici ofstream nesnesi oluşturun
+    ofstream tempFile("data/temp_database.txt");
+
+    // Orijinal dosyayı okumak için bir ifstream nesnesi oluşturun
+    ifstream originalFile("data/database.txt");
+
+    // Dosyanın açılıp açılmadığını kontrol edin
+    if (!tempFile || !originalFile) {
+        cerr << "Dosya açılamadı." << endl;
+        return;
+    }
+
+    string line;
+    bool deleted = false;
+
+    // Orijinal dosyadan satır okuyun
+    while (getline(originalFile, line)) {
+        // Satırı parçalayın ve ID'yi alın
+        stringstream ss(line);
+        string token;
+        int currentId = -1; // ID'nin -1'e eşit olduğunu varsayalım
+        while (getline(ss, token, ',')) {
+            if (token.find("Id:") != string::npos) {
+                currentId = stoi(token.substr(token.find(":") + 1)); // ID'yi bulun
+                break;
+            }
+        }
+
+        // Silinecek ID'yi bulduysanız, o satırı geçin
+        if (currentId == id) {
+            deleted = true;
+            continue;
+        }
+
+        // Geçici dosyaya satırı yazın
+        tempFile << line << endl;
+    }
+
+    // Dosyaları kapatın
+    tempFile.close();
+    originalFile.close();
+
+    // Silinmiş bir satır olup olmadığını kontrol edin
+    if (!deleted) {
+        cout << "ID bulunamadı." << endl;
+        // Geçici dosyayı silin
+        remove("data/temp_database.txt");
+        return;
+    }
+
+    // Orijinal dosyayı silin
+    remove("data/database.txt");
+
+    // Geçici dosyayı yeniden adlandırarak orijinal dosyayı oluşturun
+    rename("data/temp_database.txt", "data/database.txt");
+
+    cout << "ID başarıyla silindi." << endl;
+}

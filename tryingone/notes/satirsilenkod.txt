@@ -1,0 +1,19 @@
+void satirSil(int id) {
+    ifstream oku("dosya.txt");
+    ofstream yaz("gecici.txt");
+    string satir;
+
+    while (getline(oku, satir)) {
+        size_t pos = satir.find("Id: " + to_string(id)); // Satırda arama yap
+        if (pos == string::npos) { // Aranan ifadeyi bulamazsan
+            yaz << satir << endl; // Satırı geçici dosyaya yaz
+        }
+    }
+
+    oku.close();
+    yaz.close();
+
+    // Geçici dosyadaki veriyi asıl dosyaya aktar
+    remove("dosya.txt");
+    rename("gecici.txt", "dosya.txt");
+}
